@@ -11,8 +11,8 @@ To build it you need the following :
 Then run the following commands to build the app:
 
     npm install
-		bower install
-		grunt
+    bower install
+    grunt
 
 And it should do it !
 
