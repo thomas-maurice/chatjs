@@ -9,7 +9,7 @@ To build it you need the following :
  * grunt (install with `sudo npm install -g grunt-cli`)
 
 Then run the following commands to build the app:
- 
+
     npm install
 		bower install
 		grunt
