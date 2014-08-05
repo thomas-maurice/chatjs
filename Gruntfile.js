@@ -5,14 +5,14 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
 				files: [
-					{expand: true, cwd: 'bower/bootstrap/dist', src: ['**/*.min.*', 'fonts/**'], dest: 'static/'},
-					{expand: true, cwd: 'bower/jquery/dist', src: ['jquery.min.js'], dest: 'static/js/'},
+					{expand: true, cwd: 'bower_static/bootstrap/dist', src: ['**/*.min.*', 'fonts/**'], dest: 'static/'},
+					{expand: true, cwd: 'bower_static/jquery/dist', src: ['jquery.min.js'], dest: 'static/js/'},
 				]	
 			}
 		},
 		clean: {
 			static: [
-					'bower',
+					'bower_static',
 					'static'
 				],
 			modules: [
