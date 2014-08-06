@@ -29,7 +29,7 @@ Then run the following commands to build the app:
     bower install
     grunt
 
-And it should do it !
+And it should do it ! The app will be built in the `build` directory.
 
 ## Running
-Before that I have to code the app
+To run it, just use the `grunt deploy` command :)
