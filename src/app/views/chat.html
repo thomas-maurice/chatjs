@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ pagetitle|title }}{% endblock title %}
+
+{% block body %}
+  <h1>{{ pagetitle|title }}</h1>
+  <p>
+    Hello {{nick}} ! Welcome to Chatjs. Have fun.
+  </p>
+  <div class="col-md-12 col-md-offset-3 text-center" style="margin-top: 3em;">
+  </div>
+{% endblock body %}

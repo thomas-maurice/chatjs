@@ -6,3 +6,5 @@ exports.index = function(req, res) {
   logger.info("GET / from " + ip);
   res.render('index', {pagetitle: "ChatJS"});
 }
+
+exports.chat = require("./chat.js").chat;
