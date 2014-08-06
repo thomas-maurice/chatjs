@@ -3,6 +3,10 @@
 {% block title %}{{ pagetitle|title }}{% endblock title %}
 
 {% block body %}
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io.connect('http://0.0.0.0:8080');
+  </script>
   <h1>{{ pagetitle|title }}</h1>
   <p>
     Hello {{nick}} ! Welcome to Chatjs. Have fun.
