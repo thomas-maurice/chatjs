@@ -28,7 +28,9 @@ socket.on('disconnect', function() {
 // Lib stuff
 function displayMessage(msg) {
   var id = makeMessageId(20);
-  var message = '<p id="'+id+'">'+msg+'</p>';
+  var date = new Date();
+  var horo = "[" + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds() + "]";
+  var message = '<p id="'+id+'"><span class="text-info">'+horo + "</span> " + msg+'</p>';
   $('#chatconsole').prepend(message);
   setTimeout(function() {
       $('#'+id).fadeOut(3000, function() {$('#'+id).remove();});
