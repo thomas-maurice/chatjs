@@ -10,5 +10,5 @@ exports.chat = function(req, res) {
     return;
   }
   logger.info("POST /chat from " + ip + " using nickname " + nick);
-  res.render('chat', {pagetitle: "Chatjs", nickname: nick});
+  res.render('chat', {pagetitle: "Chatjs", nickname: nick, host: req.protocol + "://" + req.header('host')});
 };

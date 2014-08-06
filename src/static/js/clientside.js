@@ -1,5 +1,5 @@
 // Client side operation for the chat app
-var socket = io.connect('http://0.0.0.0:8080');
+var socket = io.connect(host);
 
 socket.on('connected', function(message) {
   $('#connstatus').html('Connected <i style="color:green;" class="fa fa-check"></i>');
