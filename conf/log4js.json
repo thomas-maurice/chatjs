@@ -1,6 +1,6 @@
 {
-  appenders: [
-    { type: "console" }
+  "appenders": [
+    { "type": "console" }
   ],
-  replaceConsole: true
+  "replaceConsole": true
 }
