@@ -3,14 +3,24 @@
 {% block title %}{{ pagetitle|title }}{% endblock title %}
 
 {% block body %}
-  <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket = io.connect('http://0.0.0.0:8080');
+    var nickname = "{{ nickname }}";
   </script>
-  <h1>{{ pagetitle|title }}</h1>
-  <p>
-    Hello {{nick}} ! Welcome to Chatjs. Have fun.
-  </p>
-  <div class="col-md-12 col-md-offset-3 text-center" style="margin-top: 3em;">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/static/js/clientside.js"></script>
+  <h1>{{ pagetitle|title }} <small>| Have fun !</small></h1>
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+        Hello {{nickname}} ! Welcome to Chatjs chatroom.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p>
+        Network status: <span id="connstatus">Awaiting connection <i class="fa fa-circle-o-notch fa-spin"></i></span>
+      </p>
+    </div>
+  </div>
+  <div class="col-md-12" style="margin-top: 3em;" id="chatconsole">
   </div>
 {% endblock body %}

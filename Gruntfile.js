@@ -25,13 +25,13 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd: "src/app",
-            src: ["*.js", "**/*.js", "**/*.html"],
+            cwd: "src/",
+            src: ["*.js", "chat/*.js", "routes/*.js", "views/*.html"],
             dest: "build/app/"
           },
           {
             expand: true,
-            cwd: "src/app/static",
+            cwd: "src/static",
             src: ["**"],
             dest: "build/app/public/static"
           },
