@@ -9,18 +9,19 @@ module.exports.onConnect = function(socket) {
   socket.on('disconnect', function() {
     logger.info("Websocket disconnection from " + ip.address);
     if(socket.nick != undefined)
-      socket.broadcast.emit('deco', socket.nick + ' has disconnected !');
+      socket.broadcast.emit('deco', socket.nick);
   });
   
   socket.on('nick', function(nick) {
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
-    socket.broadcast.emit('nick', nick + " has joined !");
+    socket.broadcast.emit('nick', nick);
   });
   
   socket.on('message', function(message) {
-    logger.info("MESSAGE " + ip.address + "(" + socket.nick||undefined + ")" + " : " + message);
+    logger.info("MESSAGE " + ip.address + "(" + socket.nick + ")" + " : " + message);
+    socket.broadcast.emit('message', message);
   });
   
-  socket.emit('message', 'CONNECTED');
+  socket.emit('connected', 'CONNECTED');
 }
