@@ -1,6 +1,19 @@
 // Client side operation for the chat app
 var socket = io.connect(host);
 
+var smileySubstitutions = [
+    [":)", "fa-smile-o"],
+    [":-)", "fa-smile-o"],
+    [":]", "fa-smile-o"],
+    [":-]", "fa-smile-o"],
+    [":/", "fa-meh-o"],
+    [":-/", "fa-meh-o"],
+    [":(", "fa-frown-o"],
+    [":-(", "fa-frown-o"],
+    [":[", "fa-frown-o"],
+    [":-[", "fa-frown-o"],
+  ]
+
 socket.on('connected', function(message) {
   $('#connstatus').html('Connected <i style="color:green;" class="fa fa-check"></i>');
   socket.emit('nick', nickname);
@@ -20,7 +33,13 @@ socket.on('nbclient', function(nb) {
 
 socket.on('message', function(message) {
   msg = JSON.parse(message);
-  displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + msg.message + '</span>');
+  var htmlmessage = markdown.toHTML(msg.message).remove("<p>").remove("</p>");
+  // And now smileytize it :)
+  for(i=0;i<smileySubstitutions.length;i++)
+    htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+      
+  var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
+  displayMessage(fullmessage);
 });
 
 socket.on('deco', function(nick) {
@@ -64,19 +83,6 @@ function makeMessageId(idLen) {
 
 // jQuery stuff
 $(document).ready(function() {
-  
-  var smileySubstitutions = [
-    [":)", "fa-smile-o"],
-    [":-)", "fa-smile-o"],
-    [":]", "fa-smile-o"],
-    [":-]", "fa-smile-o"],
-    [":/", "fa-meh-o"],
-    [":-/", "fa-meh-o"],
-    [":(", "fa-frown-o"],
-    [":-(", "fa-frown-o"],
-    [":[", "fa-frown-o"],
-    [":-[", "fa-frown-o"],
-  ]
   
   $("#message").keyup(function (e) {
       if (e.keyCode == 13) {
