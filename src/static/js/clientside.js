@@ -4,6 +4,15 @@ var socket = io.connect(host);
 var unread_messages = '0'
 
 var smileySubstitutions = [
+    // Spinning one !
+    [":))", "fa-smile-o fa-spin"],
+    [":((", "fa-frown-o fa-spin"],
+    
+    // Like !
+    ["(y)", "fa-thumbs-up text-success"],
+    ["(n)", "fa-thumbs-down text-danger"],
+    
+    // Standard one
     [":)", "fa-smile-o"],
     [":-)", "fa-smile-o"],
     [":]", "fa-smile-o"],
@@ -16,6 +25,7 @@ var smileySubstitutions = [
     [":-(", "fa-frown-o"],
     [":[", "fa-frown-o"],
     [":-[", "fa-frown-o"],
+    ["&lt;3", "fa-heart text-danger"],
   ]
 
 socket.on('connected', function(message) {
@@ -38,15 +48,7 @@ socket.on('nbclient', function(nb) {
 
 socket.on('message', function(message) {
   msg = JSON.parse(message);
-  var htmlmessage = markdown.toHTML(msg.message).remove("<p>").remove("</p>");
-  // And now smileytize it :)
-  for(i=0;i<smileySubstitutions.length;i++)
-    htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
-  
-  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
-  var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
-  displayMessage(fullmessage);
-  
+  displayMessage(formatMessage(msg));
   notifyAction();
 });
 
@@ -57,7 +59,7 @@ socket.on('deco', function(nick) {
 socket.on('disconnect', function() {
   $('#connstatus').html('Disconnected <i style="color:red;" class="fa fa-times fa-spin"></i>');
   $('#nbusers').html('<p>Currently disconnected from the server.</p>');
-  displayMessage('<span class="text-error"><i class="fa fa-arrow-left"></i> You have been disconnected from the server !</span>');
+  displayMessage('<span class="text-danger"><i class="fa fa-arrow-left"></i> You have been disconnected from the server !</span>');
 });
 
 // Lib stuff
@@ -91,6 +93,16 @@ function notifyAction() {
     unread_messages += 1;
     $('#title').html("("+unread_messages+") Chatjs");
   }
+}
+
+function formatMessage(msg) {
+  var htmlmessage = markdown.toHTML(msg.message).remove("<p>").remove("</p>");
+  // And now smileytize it :)
+  for(i=0;i<smileySubstitutions.length;i++)
+    htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+
+  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
+  return '<span class="text-warning"><i class="fa fa-comment"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted">says : ' + htmlmessage + '</span>';
 }
 
 // jQuery stuff
@@ -137,14 +149,9 @@ $(document).ready(function() {
     message.nick = nickname;
     
     socket.emit("message", JSON.stringify(message));
-    var htmlmessage = markdown.toHTML(message.message).remove("<p>").remove("</p>");
-    // And now smileytize it :)
-    for(i=0;i<smileySubstitutions.length;i++)
-      htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
-
-    htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
-    var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
-	  displayMessage(fullmessage);
+    
+	  displayMessage(formatMessage(message));
+    
     $('#message').val("");
     socket.emit("notyping");
   }
