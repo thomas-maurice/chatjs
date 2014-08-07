@@ -150,12 +150,27 @@ function randomizeColor() {
   displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> Your new color is <font color="'+color+'"><strong>'+color+'</strong></font></span>');
 }
 
+function toggleNinjaMode() {
+  if(ninjaMode) {
+    ninjaMode = false;
+    $("#ninjamode").html("Switch to ninja mode")
+    displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> You <strong>disabled</strong> ninja mode</span>');
+  } else {
+    ninjaMode = true;
+    $("#ninjamode").html("Switch to normal mode");
+    displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> You <strong>enabled</strong> ninja mode</span>');
+  }
+}
+
 // jQuery stuff
 $(document).ready(function() {
   // Keypress !
   var listener = new window.keypress.Listener();
   listener.simple_combo("alt c", function() {
     randomizeColor();
+  });
+  listener.simple_combo("alt n", function() {
+    toggleNinjaMode();
   });
   
   $('html').mouseenter(function() {
@@ -199,13 +214,7 @@ $(document).ready(function() {
   });
   
   $("#ninjamode").click(function() {
-    if(ninjaMode) {
-      ninjaMode = false;
-      $("#ninjamode").html("Switch to ninja mode")
-    } else {
-      ninjaMode = true;
-      $("#ninjamode").html("Switch to normal mode")
-    }
+    toggleNinjaMode();
   });
   
   function broadcastMessage() {
