@@ -37,11 +37,11 @@ function displayMessage(msg) {
   if(date.getUTCSeconds()<10) horo += "0" + date.getUTCSeconds(); else horo += date.getUTCSeconds();
   horo += "]";
   
-  var message = '<p id="'+id+'"><span>'+horo + "</span> " + msg+'</p>';
+  var message = '<div id="'+id+'"><span>'+horo + "</span> " + msg+'</div>';
   $('#chatconsole').prepend(message);
   setTimeout(function() {
       $('#'+id).fadeOut(3000, function() {$('#'+id).remove();});
-    },120000
+    },5000
   );
 }
 
