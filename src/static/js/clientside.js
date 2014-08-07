@@ -41,7 +41,7 @@ function displayMessage(msg) {
   $('#chatconsole').prepend(message);
   setTimeout(function() {
       $('#'+id).fadeOut(3000, function() {$('#'+id).remove();});
-    },5000
+    },120000
   );
 }
 
