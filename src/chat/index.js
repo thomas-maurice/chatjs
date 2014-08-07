@@ -2,6 +2,8 @@ var log4js = require("log4js");
 var sugar = require("sugar");
 var logger = log4js.getLogger("chatjs");
 
+var sockets = []
+
 module.exports.onConnect = function(socket) {
   var ip = socket.handshake.address;
   logger.info("Websocket connection from " + ip.address);
@@ -9,14 +11,19 @@ module.exports.onConnect = function(socket) {
   /* Configure the socket */
   socket.on('disconnect', function() {
     logger.info("Websocket disconnection from " + ip.address);
-    if(socket.nick != undefined)
+    if(socket.nick != undefined) {
       socket.broadcast.emit('deco', socket.nick);
+      sockets.remove(function(el) { return el.id === socket.id; });
+      logger.info("Now " + sockets.length + " clients connected");
+    }
   });
   
   socket.on('nick', function(nick) {
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
     socket.broadcast.emit('nick', nick);
+    sockets.push(socket)
+    logger.info("Now " + sockets.length + " clients connected");
   });
   
   socket.on('typing', function() {

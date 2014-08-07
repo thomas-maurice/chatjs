@@ -82,9 +82,8 @@ $(document).ready(function() {
     
     socket.emit("message", JSON.stringify(message));
     var htmlmessage = markdown.toHTML(message.message).remove("<p>").remove("</p>");
-    console.log(htmlmessage);
-    displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>');
-
+    var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
+	displayMessage(fullmessage);
     $('#message').val("");
     socket.emit("notyping");
   }
