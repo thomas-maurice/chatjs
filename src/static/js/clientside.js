@@ -59,10 +59,10 @@ function makeMessageId(idLen) {
 $(document).ready(function() {
   
   var smileySubstitutions = [
-    [":)", "fa-smiley-o"],
-    [":-)", "fa-smiley-o"],
-    [":]", "fa-smiley-o"],
-    [":-]", "fa-smiley-o"],
+    [":)", "fa-smile-o"],
+    [":-)", "fa-smile-o"],
+    [":]", "fa-smile-o"],
+    [":-]", "fa-smile-o"],
     [":/", "fa-meh-o"],
     [":-/", "fa-meh-o"],
     [":(", "fa-frown-o"],
