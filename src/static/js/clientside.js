@@ -52,7 +52,11 @@ socket.on('notyping', function(id) {
 });
 
 socket.on('nick', function(nick) {
-  displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick.nick+" has joined the chatroom !</span>");
+  if(!$('#'+nick.id).length)
+    displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> <strong>'+nick.nick+"</strong> has joined the chatroom !</span>");
+  else // He is already registered
+    displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick+"</strong> is now known as <strong>"+nick.nick+"</strong></span>");
+  
   if($('#'+nick.id).length) $('#'+nick.id).remove();
   $('#userlist').append('<li class="list-group-item" id="'+nick.id+'">'+nick.nick+' <span class="status"></span></li>');
   notifyAction();
@@ -157,6 +161,19 @@ $(document).ready(function() {
         socket.emit("typing");
       else if($('#message').val() == "")
         socket.emit("notyping");
+  });
+  
+  $("#nickname").keyup(function (e) {
+      if (e.keyCode == 13) {
+          if($("#nickname").val() == "")
+            $("#nickname").val(nickname);
+          else {
+            nickname = $("#nickname").val();
+            socket.emit("nick", nickname);
+            displayMessage('<span class="text-info"><i class="fa fa-user" /> You are now known as <strong>'+nickname+'</strong></span>');
+            $('#message').focus();
+          }
+      }
   });
   
   $("#sendbutton").click(function() {

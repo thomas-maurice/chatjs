@@ -28,9 +28,10 @@ module.exports.onConnect = function(socket) {
       });
       socket.emit("userlist", l);
     }
+    var oldnick = socket.nick
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
-    socket.broadcast.emit('nick', {nick: nick, id: socket.id});
+    socket.broadcast.emit('nick', {nick: nick, oldnick: oldnick, id: socket.id});
     sockets.push(socket);
     socket.emit('nbclient', sockets.length);
     socket.broadcast.emit('nbclient', sockets.length);
