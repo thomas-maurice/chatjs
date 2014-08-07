@@ -13,8 +13,8 @@ module.exports.onConnect = function(socket) {
     logger.info("Websocket disconnection from " + ip.address);
     if(socket.nick != undefined) {
       socket.broadcast.emit('deco', {nick: socket.nick, id: socket.id});
-      socket.broadcast.emit('nbclient', sockets.length);
       sockets.remove(function(el) { return el.id === socket.id; });
+      socket.broadcast.emit('nbclient', sockets.length);
       logger.info("Now " + sockets.length + " clients connected");
     }
     
@@ -22,6 +22,7 @@ module.exports.onConnect = function(socket) {
   });
   
   socket.on('nick', function(nick) {
+    if(nick == undefined) return;
     if(socket.nick == undefined) {
       // Send the userlist !
       l = [];
