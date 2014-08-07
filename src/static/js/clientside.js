@@ -129,7 +129,7 @@ function formatMessage(msg) {
     htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-  return '<span class="text-warning"><i class="fa fa-comment"></i> <strong><font color="'+msg.color+'">'+ msg.nick.escapeHTML() + '</font></strong></span> <span class="text-muted"> ' + htmlmessage + '</span>';
+  return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
 }
 
 // jQuery stuff
