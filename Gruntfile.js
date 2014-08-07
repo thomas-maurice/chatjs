@@ -13,14 +13,26 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd: 'bower_static/fontawesome/',
-            src: ['**/*.min.*', 'fonts/**'],
-            dest: 'build/app/public/static/'
+            cwd: 'bower_static/jquery/dist',
+            src: ['jquery.min.js'],
+            dest: 'build/app/public/static/js/'
           },
           {
             expand: true,
             cwd: 'bower_static/jquery/dist',
             src: ['jquery.min.js'],
+            dest: 'build/app/public/static/js/'
+          },
+          {
+            expand: true,
+            cwd: 'bower_static/sugar/release',
+            src: ['*.min.js'],
+            dest: 'build/app/public/static/js/'
+          },
+          {
+            expand: true,
+            cwd: 'bower_static/markdown/lib',
+            src: ['markdown.js'],
             dest: 'build/app/public/static/js/'
           },
           {
