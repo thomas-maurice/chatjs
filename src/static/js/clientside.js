@@ -8,8 +8,10 @@ var smileySubstitutions = [
     [":-)", "fa-smile-o"],
     [":]", "fa-smile-o"],
     [":-]", "fa-smile-o"],
-    [":/", "fa-meh-o"],
+    [" :/ ", "fa-meh-o"],
     [":-/", "fa-meh-o"],
+    [":-|", "fa-meh-o"],
+    [":|", "fa-meh-o"],
     [":(", "fa-frown-o"],
     [":-(", "fa-frown-o"],
     [":[", "fa-frown-o"],
@@ -39,7 +41,8 @@ socket.on('message', function(message) {
   // And now smileytize it :)
   for(i=0;i<smileySubstitutions.length;i++)
     htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
-      
+  
+  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
   var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
   displayMessage(fullmessage);
   
@@ -119,7 +122,8 @@ $(document).ready(function() {
     // And now smileytize it :)
     for(i=0;i<smileySubstitutions.length;i++)
       htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
-      
+
+    htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
     var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
 	  displayMessage(fullmessage);
     $('#message').val("");
