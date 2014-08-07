@@ -41,9 +41,9 @@ socket.on('nick', function(nick) {
 
 socket.on('nbclient', function(nb) {
   if(nb != 1)
-    $('#nbusers').html("<p>" + nb + " clients connected.</p>");
+    $('#nbusers').html("<p>" + nb + " users connected.</p>");
   else
-    $('#nbusers').html("<p>" + nb + " client connected (you !).</p>");
+    $('#nbusers').html("<p>" + nb + " user connected (you !).</p>");
 });
 
 socket.on('message', function(message) {
