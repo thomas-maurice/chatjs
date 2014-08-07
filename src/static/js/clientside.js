@@ -35,8 +35,17 @@ socket.on('connected', function(message) {
 });
 
 socket.on('nick', function(nick) {
-  displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick+" has joined the chatroom !</span>");
+  displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick.nick+" has joined the chatroom !</span>");
+  if($('#'+nick.id).length) $('#'+nick.id).remove();
+  $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="status"></span>'+nick.nick+'</li>');
   notifyAction();
+});
+
+socket.on('userlist', function(l) {
+  for(i=0; i < l.length;i++) {
+    if($('#'+l[i].id).length) $('#'+l[i].id).remove();
+    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'"><span class="status"></span>'+l[i].nick+'</li>');
+  }
 });
 
 socket.on('nbclient', function(nb) {
@@ -53,7 +62,8 @@ socket.on('message', function(message) {
 });
 
 socket.on('deco', function(nick) {
-  displayMessage('<span class="text-info"><i class="fa fa-arrow-left"></i> '+nick+" has left the chatroom !</span>");
+  displayMessage('<span class="text-info"><i class="fa fa-arrow-left"></i> '+nick.nick+" has left the chatroom !</span>");
+  $('#'+nick.id).remove();
 });
 
 socket.on('disconnect', function() {

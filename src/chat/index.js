@@ -12,7 +12,7 @@ module.exports.onConnect = function(socket) {
   socket.on('disconnect', function() {
     logger.info("Websocket disconnection from " + ip.address);
     if(socket.nick != undefined) {
-      socket.broadcast.emit('deco', socket.nick);
+      socket.broadcast.emit('deco', {nick: socket.nick, id: socket.id});
       sockets.remove(function(el) { return el.id === socket.id; });
       socket.broadcast.emit('nbclient', sockets.length);
       logger.info("Now " + sockets.length + " clients connected");
@@ -20,25 +20,36 @@ module.exports.onConnect = function(socket) {
   });
   
   socket.on('nick', function(nick) {
+    if(socket.nick == undefined) {
+      // Send the userlist !
+      l = [];
+      sockets.forEach(function(s) {
+        l.push({nick: s.nick, id: s.id});
+      });
+      socket.emit("userlist", l);
+    }
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
-    socket.broadcast.emit('nick', nick);
-    sockets.push(socket)
+    socket.broadcast.emit('nick', {nick: nick, id: socket.id});
+    sockets.push(socket);
     socket.emit('nbclient', sockets.length);
     socket.broadcast.emit('nbclient', sockets.length);
     logger.info("Now " + sockets.length + " clients connected");
   });
   
   socket.on('typing', function() {
-    socket.broadcast.emit('notyping', socket.nick);
+    socket.broadcast.emit('notyping', socket.id);
   });
   
   socket.on('notyping', function() {
-    socket.broadcast.emit('notyping', socket.nick);
+    socket.broadcast.emit('notyping', socket.id);
   });
   
   socket.on('message', function(message) {
     logger.info("MESSAGE " + ip.address + "(" + socket.nick + ")" + " : " + message);
+    var msg = JSON.parse(message);
+    msg.id = socket.id;
+    message = JSON.stringify(msg)
     socket.broadcast.emit('message', message);
   });
   
