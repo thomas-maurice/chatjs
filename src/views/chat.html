@@ -13,13 +13,16 @@
   <script src="/static/js/clientside.js"></script>
   <h1>{{ pagetitle|title }} <small>| Have fun !</small></h1>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4 text-center">
       <p>
         Hello {{nickname}} ! Welcome to Chatjs chatroom.
       </p>
     </div>
+    <div class="col-md-4 text-center" id="nbusers">
+
+    </div>
     <div class="col-md-4">
-      <p class="text-right">
+      <p class="text-center">
         Network status: <span id="connstatus">Awaiting connection <i class="fa fa-circle-o-notch fa-spin"></i></span>
       </p>
     </div>

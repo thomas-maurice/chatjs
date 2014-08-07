@@ -14,6 +14,7 @@ module.exports.onConnect = function(socket) {
     if(socket.nick != undefined) {
       socket.broadcast.emit('deco', socket.nick);
       sockets.remove(function(el) { return el.id === socket.id; });
+      socket.broadcast.emit('nbclient', sockets.length);
       logger.info("Now " + sockets.length + " clients connected");
     }
   });
@@ -23,6 +24,8 @@ module.exports.onConnect = function(socket) {
     logger.info("NICK " + ip.address + " : " + nick);
     socket.broadcast.emit('nick', nick);
     sockets.push(socket)
+    socket.emit('nbclient', sockets.length);
+    socket.broadcast.emit('nbclient', sockets.length);
     logger.info("Now " + sockets.length + " clients connected");
   });
   

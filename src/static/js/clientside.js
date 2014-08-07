@@ -11,6 +11,13 @@ socket.on('nick', function(nick) {
   displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick+" has joined the chatroom !</span>");
 });
 
+socket.on('nbclient', function(nb) {
+  if(nb != 1)
+    $('#nbusers').html("<p>" + nb + " clients connected.</p>");
+  else
+    $('#nbusers').html("<p>" + nb + " client connected (you !).</p>");
+});
+
 socket.on('message', function(message) {
   msg = JSON.parse(message);
   displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + msg.message + '</span>');
