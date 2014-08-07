@@ -25,6 +25,12 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
+            cwd: 'bower_static/hint.css/',
+            src: ['hint.min.css'],
+            dest: 'build/app/public/static/css/'
+          },
+          {
+            expand: true,
             cwd: 'bower_static/sugar/release',
             src: ['*.min.js'],
             dest: 'build/app/public/static/js/'
