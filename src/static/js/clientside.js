@@ -1,6 +1,8 @@
 // Client side operation for the chat app
 var socket = io.connect(host);
 
+var unread_messages = '0'
+
 var smileySubstitutions = [
     [":)", "fa-smile-o"],
     [":-)", "fa-smile-o"],
@@ -40,6 +42,12 @@ socket.on('message', function(message) {
       
   var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
   displayMessage(fullmessage);
+  
+  if(!document.hasFocus()) {
+    unread_messages += 1;
+    $('#title').html("("+unread_messages+") Chatjs");
+  }
+  
 });
 
 socket.on('deco', function(nick) {
@@ -77,6 +85,11 @@ function makeMessageId(idLen) {
 
 // jQuery stuff
 $(document).ready(function() {
+  
+  $('html').mouseenter(function() {
+    unread_messages = 0;
+    $("#title").html("Chatjs");
+  });
   
   $("#message").keyup(function (e) {
       if (e.keyCode == 13) {
