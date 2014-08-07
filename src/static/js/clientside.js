@@ -3,6 +3,14 @@ var socket = io.connect(host);
 
 var unread_messages = 0
 
+// pick a color !
+var colors = [
+  "aqua", "black", "blue", "fuchsia", "grey", "lime", "maroon", "navy", "olive",
+  "orange", "purple", "red", "silver", "teal", "yellow",
+];
+
+color = colors[Math.floor(Math.random() * colors.length)];
+
 var smileySubstitutions = [
     // Spinning one !
     [":))", "fa-smile-o fa-spin"],
@@ -121,7 +129,7 @@ function formatMessage(msg) {
     htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-  return '<span class="text-warning"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></span>  <span class="text-muted">says : ' + htmlmessage + '</span>';
+  return '<span class="text-warning"><i class="fa fa-comment"></i> <strong><font color="'+msg.color+'">'+ msg.nick.escapeHTML() + '</font></strong></span> <span class="text-muted"> ' + htmlmessage + '</span>';
 }
 
 // jQuery stuff
@@ -166,6 +174,7 @@ $(document).ready(function() {
     message = {}
     message.message = $('#message').val();
     message.nick = nickname;
+    message.color = color;
     
     socket.emit("message", JSON.stringify(message));
     
