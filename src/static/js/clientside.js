@@ -26,6 +26,7 @@ socket.on('connected', function(message) {
 
 socket.on('nick', function(nick) {
   displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick+" has joined the chatroom !</span>");
+  notifyAction();
 });
 
 socket.on('nbclient', function(nb) {
@@ -46,11 +47,7 @@ socket.on('message', function(message) {
   var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
   displayMessage(fullmessage);
   
-  if(!document.hasFocus()) {
-    unread_messages += 1;
-    $('#title').html("("+unread_messages+") Chatjs");
-  }
-  
+  notifyAction();
 });
 
 socket.on('deco', function(nick) {
@@ -89,6 +86,13 @@ function makeMessageId(idLen) {
     return text;
 }
 
+function notifyAction() {
+  if(!document.hasFocus()) {
+    unread_messages += 1;
+    $('#title').html("("+unread_messages+") Chatjs");
+  }
+}
+
 // jQuery stuff
 $(document).ready(function() {
   
@@ -106,8 +110,6 @@ $(document).ready(function() {
 	  else
 	    socket.emit("notyping");
   });
-  
-  
   
   $("#sendbutton").click(function() {
     broadcastMessage();
