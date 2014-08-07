@@ -55,13 +55,7 @@ socket.on('disconnect', function() {
 function displayMessage(msg) {
   var id = makeMessageId(20);
   var date = new Date();
-  var horo = "["
-  if(date.getUTCHours()<10) horo += "0" + date.getUTCHours(); else horo += date.getUTCHours();
-  horo += ":";
-  if(date.getUTCMinutes()<10) horo += "0" + date.getUTCMinutes(); else horo += date.getUTCMinutes();
-  horo += ":";
-  if(date.getUTCSeconds()<10) horo += "0" + date.getUTCSeconds(); else horo += date.getUTCSeconds();
-  horo += "]";
+  var horo = "[" + Date.create().format('{24hr}:{mm}:{ss}') + "]";
   
   var message = '<div id="'+id+'"><span>'+horo + "</span> " + msg+'</div>';
   $('#chatconsole').prepend(message);
