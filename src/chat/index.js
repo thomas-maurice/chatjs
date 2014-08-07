@@ -1,4 +1,5 @@
 var log4js = require("log4js");
+var sugar = require("sugar");
 var logger = log4js.getLogger("chatjs");
 
 module.exports.onConnect = function(socket) {
@@ -16,6 +17,14 @@ module.exports.onConnect = function(socket) {
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
     socket.broadcast.emit('nick', nick);
+  });
+  
+  socket.on('typing', function() {
+    socket.broadcast.emit('notyping', socket.nick);
+  });
+  
+  socket.on('notyping', function() {
+    socket.broadcast.emit('notyping', socket.nick);
   });
   
   socket.on('message', function(message) {

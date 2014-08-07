@@ -61,7 +61,13 @@ $(document).ready(function() {
       if (e.keyCode == 13) {
           broadcastMessage();
       }
+      if($('#message').val() != "")
+		socket.emit("typing");
+	  else
+	    socket.emit("notyping");
   });
+  
+  
   
   $("#sendbutton").click(function() {
     broadcastMessage();
@@ -78,5 +84,6 @@ $(document).ready(function() {
     displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + nickname + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + message.message + '</span>');
 
     $('#message').val("");
+    socket.emit("notyping");
   }
 });
