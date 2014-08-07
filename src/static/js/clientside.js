@@ -122,11 +122,20 @@ function notifyAction() {
   }
 }
 
+function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function replaceAll(string, find, replace) {
+  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
 function formatMessage(msg) {
   var htmlmessage = markdown.toHTML(msg.message).remove("<p>").remove("</p>");
   // And now smileytize it :)
   for(i=0;i<smileySubstitutions.length;i++)
-    htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+    htmlmessage = replaceAll(htmlmessage, smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+    //htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
   return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
