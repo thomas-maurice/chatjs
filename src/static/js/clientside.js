@@ -59,6 +59,7 @@ socket.on('deco', function(nick) {
 
 socket.on('disconnect', function() {
   $('#connstatus').html('Disconnected <i style="color:red;" class="fa fa-times fa-spin"></i>');
+  $('#nbusers').html('<p>Currently disconnected from the server.</p>');
   displayMessage('<span class="text-error"><i class="fa fa-arrow-left"></i> You have been disconnected from the server !</span>');
 });
 
