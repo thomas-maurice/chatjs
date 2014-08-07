@@ -37,6 +37,12 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
+            cwd: 'bower_static/Keypress',
+            src: ['keypress.js'],
+            dest: 'build/app/public/static/js/'
+          },
+          {
+            expand: true,
             cwd: 'bower_static/markdown/lib',
             src: ['markdown.js'],
             dest: 'build/app/public/static/js/'

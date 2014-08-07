@@ -9,7 +9,7 @@ var colors = [
   "orange", "purple", "red", "silver", "teal", "yellow",
 ];
 
-color = colors[Math.floor(Math.random() * colors.length)];
+randomizeColor();
 
 var smileySubstitutions = [
     // Spinning one !
@@ -145,8 +145,18 @@ function formatMessage(msg) {
   return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
 }
 
+function randomizeColor() {
+  color = colors[Math.floor(Math.random() * colors.length)];
+  displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> Your new color is <font color="'+color+'"><strong>'+color+'</strong></font></span>');
+}
+
 // jQuery stuff
 $(document).ready(function() {
+  // Keypress !
+  var listener = new window.keypress.Listener();
+  listener.simple_combo("alt c", function() {
+    randomizeColor();
+  });
   
   $('html').mouseenter(function() {
     unread_messages = 0;
@@ -181,8 +191,7 @@ $(document).ready(function() {
   });
   
   $("#randcolorbutton").click(function() {
-    color = colors[Math.floor(Math.random() * colors.length)];
-    displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> Your new color is <font color="'+color+'"><strong>'+color+'</strong></font></span>');
+    randomizeColor();
   });
   
   $("#clearbutton").click(function() {
