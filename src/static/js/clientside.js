@@ -57,6 +57,20 @@ function makeMessageId(idLen) {
 
 // jQuery stuff
 $(document).ready(function() {
+  
+  var smileySubstitutions = [
+    [":)", "fa-smiley-o"],
+    [":-)", "fa-smiley-o"],
+    [":]", "fa-smiley-o"],
+    [":-]", "fa-smiley-o"],
+    [":/", "fa-meh-o"],
+    [":-/", "fa-meh-o"],
+    [":(", "fa-frown-o"],
+    [":-(", "fa-frown-o"],
+    [":[", "fa-frown-o"],
+    [":-[", "fa-frown-o"],
+  ]
+  
   $("#message").keyup(function (e) {
       if (e.keyCode == 13) {
           broadcastMessage();
@@ -83,7 +97,9 @@ $(document).ready(function() {
     socket.emit("message", JSON.stringify(message));
     var htmlmessage = markdown.toHTML(message.message).remove("<p>").remove("</p>");
     // And now smileytize it :)
-    htmlmessage.replace(":)", '<i class="fa fa-smile-o fa-lg" />');
+    for(i=0;i<smileySubstitutions.length;i++)
+      htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+      
     var fullmessage = '<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>';
 	  displayMessage(fullmessage);
     $('#message').val("");
