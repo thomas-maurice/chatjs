@@ -1,6 +1,15 @@
 # chatjs
 Some random dummy websocket chat application to toy around node and the automated building tools
 
+## Developpement
+
+ * Status : Active
+ * Version : 0.0.3
+ * Main developper : svartbergtroll
+ * Stability : *meh* I suppose it's okay
+
+Forks & pull requests welcome.
+
 ## License
                DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                        Version 2, December 2004

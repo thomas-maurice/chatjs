@@ -1,7 +1,7 @@
 {
   "name": "chatjs",
   "author": "svartbergtroll <tmaurice59@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "dependencies": {
     "bootstrap": "~3.2.0",
     "fontawesome": "~4.1.0",
