@@ -154,6 +154,11 @@ $(document).ready(function() {
     broadcastMessage();
   });
   
+  $("#randcolorbutton").click(function() {
+    color = colors[Math.floor(Math.random() * colors.length)];
+    displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> Your new color is <font color="'+color+'"><strong>'+color+'</strong></font></span>');
+  });
+  
   $("#clearbutton").click(function() {
     $('#chatconsole').html("");
   });
