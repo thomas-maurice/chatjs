@@ -81,7 +81,9 @@ $(document).ready(function() {
     message.nick = nickname;
     
     socket.emit("message", JSON.stringify(message));
-    displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + nickname + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + message.message + '</span>');
+    var htmlmessage = markdown.toHTML(message.message).remove("<p>").remove("</p>");
+    console.log(htmlmessage);
+    displayMessage('<span class="text-warning"><i class="fa fa-user"></i> ' + nickname.escapeHTML() + '</span>  <span class="text-muted"><i class="fa fa-comment"></i> ' + htmlmessage + '</span>');
 
     $('#message').val("");
     socket.emit("notyping");
