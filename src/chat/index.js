@@ -38,7 +38,7 @@ module.exports.onConnect = function(socket) {
   });
   
   socket.on('typing', function() {
-    socket.broadcast.emit('notyping', socket.id);
+    socket.broadcast.emit('typing', socket.id);
   });
   
   socket.on('notyping', function() {

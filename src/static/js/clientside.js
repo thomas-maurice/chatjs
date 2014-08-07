@@ -1,7 +1,7 @@
 // Client side operation for the chat app
 var socket = io.connect(host);
 
-var unread_messages = '0'
+var unread_messages = 0
 
 var smileySubstitutions = [
     // Spinning one !
@@ -31,13 +31,22 @@ var smileySubstitutions = [
 socket.on('connected', function(message) {
   $('#connstatus').html('Connected <i style="color:green;" class="fa fa-check"></i>');
   socket.emit('nick', nickname);
+  $('#userlist').html('');
   displayMessage('<span class="text-success"><i class="fa fa-arrow-right"></i> You have joined the chatroom !</span>');
+});
+
+socket.on('typing', function(id) {
+  $('#'+id+' .status').html('<i class="fa fa-keyboard-o text-muted" />');
+});
+
+socket.on('notyping', function(id) {
+  $('#'+id+' .status').html('');
 });
 
 socket.on('nick', function(nick) {
   displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> '+nick.nick+" has joined the chatroom !</span>");
   if($('#'+nick.id).length) $('#'+nick.id).remove();
-  $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="status"></span>'+nick.nick+'</li>');
+  $('#userlist').append('<li class="list-group-item" id="'+nick.id+'">'+nick.nick+' <span class="status"></span></li>');
   notifyAction();
 });
 
@@ -127,10 +136,10 @@ $(document).ready(function() {
       if (e.keyCode == 13) {
           broadcastMessage();
       }
-      if($('#message').val() != "")
-		socket.emit("typing");
-	  else
-	    socket.emit("notyping");
+      if($('#message').val() != "" && $('#message').val().length == 1) // Send it only once
+        socket.emit("typing");
+      else if($('#message').val() == "")
+        socket.emit("notyping");
   });
   
   $("#sendbutton").click(function() {
