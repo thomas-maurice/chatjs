@@ -83,7 +83,7 @@ socket.on('message', function(message) {
 });
 
 socket.on('deco', function(nick) {
-  displayMessage('<span class="text-info"><i class="fa fa-arrow-left"></i> '+nick.nick+" has left the chatroom !</span>");
+  displayMessage('<span class="text-info"><i class="fa fa-arrow-left"></i> <strong>'+nick.nick+"</strong> has left the chatroom !</span>");
   $('#'+nick.id).remove();
 });
 
