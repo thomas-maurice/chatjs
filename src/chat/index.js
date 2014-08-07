@@ -13,10 +13,12 @@ module.exports.onConnect = function(socket) {
     logger.info("Websocket disconnection from " + ip.address);
     if(socket.nick != undefined) {
       socket.broadcast.emit('deco', {nick: socket.nick, id: socket.id});
-      sockets.remove(function(el) { return el.id === socket.id; });
       socket.broadcast.emit('nbclient', sockets.length);
+      sockets.remove(function(el) { return el.id === socket.id; });
       logger.info("Now " + sockets.length + " clients connected");
     }
+    
+    
   });
   
   socket.on('nick', function(nick) {
@@ -27,12 +29,12 @@ module.exports.onConnect = function(socket) {
         l.push({nick: s.nick, id: s.id});
       });
       socket.emit("userlist", l);
+      sockets.push(socket);
     }
     var oldnick = socket.nick
     socket.nick = nick;
     logger.info("NICK " + ip.address + " : " + nick);
     socket.broadcast.emit('nick', {nick: nick, oldnick: oldnick, id: socket.id});
-    sockets.push(socket);
     socket.emit('nbclient', sockets.length);
     socket.broadcast.emit('nbclient', sockets.length);
     logger.info("Now " + sockets.length + " clients connected");
