@@ -101,7 +101,7 @@ function formatMessage(msg) {
   for(i=0;i<smileySubstitutions.length;i++)
     htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
-  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
+  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
   return '<span class="text-warning"><i class="fa fa-comment"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted">says : ' + htmlmessage + '</span>';
 }
 
