@@ -6,6 +6,7 @@
   <script type="text/javascript">
     var nickname = "{{ nickname }}";
     var host = "{{ host }}";
+    var ninjaMode = false;
   </script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/static/js/sugar-full.min.js"></script>
@@ -31,7 +32,8 @@
     <div class="input-group input-group-lg">
       <input id="message" name="message" type="text" class="form-control" placeholder="Enter your message here !" required autofocus>
       <div class="input-group-btn">
-        <button id="sendbutton" class="btn btn-primary">Send !</button>
+        <button id="sendbutton" class="btn">Send !</button>
+        <button class="btn btn-warning" id="ninjamode">Switch to ninja mode</button>
       </div>
     </div>
   </div>

@@ -72,7 +72,9 @@ function displayMessage(msg) {
   var message = '<div id="'+id+'"><span>'+horo + "</span> " + msg+'</div>';
   $('#chatconsole').prepend(message);
   setTimeout(function() {
-      $('#'+id).fadeOut(3000, function() {$('#'+id).remove();});
+      if(ninjaMode) {
+        $('#'+id).fadeOut(3000, function() {$('#'+id).remove();});
+      }
     },120000
   );
 }
@@ -109,6 +111,16 @@ $(document).ready(function() {
   
   $("#sendbutton").click(function() {
     broadcastMessage();
+  });
+  
+  $("#ninjamode").click(function() {
+    if(ninjaMode) {
+      ninjaMode = false;
+      $("#ninjamode").html("Switch to ninja mode")
+    } else {
+      ninjaMode = true;
+      $("#ninjamode").html("Switch to normal mode")
+    }
   });
   
   function broadcastMessage() {
