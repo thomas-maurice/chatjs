@@ -36,7 +36,7 @@ socket.on('connected', function(message) {
 });
 
 socket.on('typing', function(id) {
-  $('#'+id+' .status').html('<i class="fa fa-keyboard-o text-muted" />');
+  $('#'+id+' .status').html('&nbsp;<i class="fa fa-keyboard-o text-muted" />');
 });
 
 socket.on('notyping', function(id) {
@@ -53,7 +53,7 @@ socket.on('nick', function(nick) {
 socket.on('userlist', function(l) {
   for(i=0; i < l.length;i++) {
     if($('#'+l[i].id).length) $('#'+l[i].id).remove();
-    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'"><span class="status"></span>'+l[i].nick+'</li>');
+    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'">'+l[i].nick+' <span class="status"></span></li>');
   }
 });
 
@@ -121,7 +121,7 @@ function formatMessage(msg) {
     htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-  return '<span class="text-warning"><i class="fa fa-comment"></i> ' + msg.nick.escapeHTML() + '</span>  <span class="text-muted">says : ' + htmlmessage + '</span>';
+  return '<span class="text-warning"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></span>  <span class="text-muted">says : ' + htmlmessage + '</span>';
 }
 
 // jQuery stuff
