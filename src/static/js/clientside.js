@@ -113,6 +113,10 @@ $(document).ready(function() {
     broadcastMessage();
   });
   
+  $("#clearbutton").click(function() {
+    $('#chatconsole').html("");
+  });
+  
   $("#ninjamode").click(function() {
     if(ninjaMode) {
       ninjaMode = false;
