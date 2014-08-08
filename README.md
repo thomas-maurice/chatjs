@@ -25,8 +25,22 @@ Forks & pull requests welcome.
      
      0. You just DO WHAT THE FUCK YOU WANT TO.
 
+## Features
+For now the app supports only one big chatroom. The main functionalities are :
+
+ * [Markdown](http://daringfireball.net/projects/markdown/) formating for all your messages
+ * User nicknames, and nickname changes
+ * Nickname color, and randomization of it via Alt + c
+ * User list in the chat
+ * Auto reconnection on server or client failure
+ * Connection/Deconnection notification
+ * Some smileys :)
+ * Clickable links
+ * Ninja mode (accessible via Alt + n) it will make the message disapear from your console after 2 minutes. Handy if you are at work ;)
+
 ## Build
 To build it you need the following :
+
  * node.js
  * npm
  * bower (install with `sudo npm install -g bower`)
