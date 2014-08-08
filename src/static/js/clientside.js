@@ -82,6 +82,12 @@ socket.on('message', function(message) {
   notifyAction();
 });
 
+socket.on('status', function(message) {
+  msg = JSON.parse(message);
+  displayMessage(formatStatus(msg));
+  notifyAction();
+});
+
 socket.on('deco', function(nick) {
   displayMessage('<span class="text-info"><i class="fa fa-arrow-left"></i> <strong>'+nick.nick+"</strong> has left the chatroom !</span>");
   $('#'+nick.id).remove();
@@ -145,6 +151,17 @@ function formatMessage(msg) {
   return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
 }
 
+function formatStatus(msg) {
+  var htmlmessage = markdown.toHTML(msg.message).remove("<p>").remove("</p>");
+  // And now smileytize it :)
+  for(i=0;i<smileySubstitutions.length;i++)
+    htmlmessage = replaceAll(htmlmessage, smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+    //htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
+
+  htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+  return '<font color="'+msg.color+'"><i class="fa fa-asterisk"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> ' + htmlmessage + '</span>';
+}
+
 function randomizeColor() {
   color = colors[Math.floor(Math.random() * colors.length)];
   displayMessage('<span class="text-info"><i class="fa fa-info-circle" /> Your new color is <font color="'+color+'"><strong>'+color+'</strong></font></span>');
@@ -166,6 +183,43 @@ function adjustHeight() {
   var height = $(window).height()-20-$('#toppart').height()-2*$('#footer').height() + "px";
   $('#chatconsole').css("max-height", height);
   $('#chatconsole').css("height", height);
+}
+
+function broadcastMessage() {
+  if($('#message').val() == "") return;
+  
+  var msg = $('#message').val();
+  
+  if(msg.match(/^\/me[ ]?.*/gim)) {
+    var status = /^\/me (.*)/gim.exec(msg);
+    if(status == null) {
+      var stat = {};
+      stat.message = "";
+      stat.nick = nickname;
+      stat.color = color;
+      socket.emit("status", JSON.stringify(stat));
+    } else {
+      status=status[1];
+      var stat = {};
+      stat.message = status;
+      stat.nick = nickname;
+      stat.color = color;
+      socket.emit("status", JSON.stringify(stat));
+      displayMessage(formatStatus(stat));
+    }
+  } else  { // This is a standard message !
+    var message = {};
+    message.message = msg;
+    message.nick = nickname;
+    message.color = color;
+    
+    socket.emit("message", JSON.stringify(message));
+     
+    displayMessage(formatMessage(message));
+  }
+  
+  $('#message').val("");
+  socket.emit("notyping");
 }
 
 // jQuery stuff
@@ -228,20 +282,4 @@ $(document).ready(function() {
   $("#ninjamode").click(function() {
     toggleNinjaMode();
   });
-  
-  function broadcastMessage() {
-    if($('#message').val() == "") return;
-    
-    message = {}
-    message.message = $('#message').val();
-    message.nick = nickname;
-    message.color = color;
-    
-    socket.emit("message", JSON.stringify(message));
-    
-	  displayMessage(formatMessage(message));
-    
-    $('#message').val("");
-    socket.emit("notyping");
-  }
 });

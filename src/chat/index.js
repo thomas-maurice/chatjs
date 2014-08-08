@@ -42,19 +42,31 @@ module.exports.onConnect = function(socket) {
   });
   
   socket.on('typing', function() {
+    if(socket.nick == undefined) return;
     socket.broadcast.emit('typing', socket.id);
   });
   
   socket.on('notyping', function() {
+    if(socket.nick == undefined) return;
     socket.broadcast.emit('notyping', socket.id);
   });
   
   socket.on('message', function(message) {
+    if(socket.nick == undefined) return;
     logger.info("MESSAGE " + ip.address + "(" + socket.nick + ")" + " : " + message);
     var msg = JSON.parse(message);
     msg.id = socket.id;
     message = JSON.stringify(msg)
     socket.broadcast.emit('message', message);
+  });
+  
+  socket.on('status', function(message) {
+    if(socket.nick == undefined) return;
+    logger.info("STATUS " + ip.address + "(" + socket.nick + ")" + " : " + message);
+    var msg = JSON.parse(message);
+    msg.id = socket.id;
+    message = JSON.stringify(msg)
+    socket.broadcast.emit('status', message);
   });
   
   socket.emit('connected', 'CONNECTED');

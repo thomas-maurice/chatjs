@@ -15,3 +15,8 @@ body {
 	/* Set the fixed height of the footer here */
 	height: 100px;
 }
+
+#chatconsole {
+        margin-top: 3em;
+        overflow-y: auto;
+}
