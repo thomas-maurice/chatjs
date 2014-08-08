@@ -16,7 +16,9 @@
   <div class="row">
     <div class="col-md-4 text-justify">
       <p>
-          You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to format you messages ! As well as some cool smileys.
+          You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+          to format you messages ! As well as some cool smileys. Maybe you would want some 
+          <a href="javascript:void(0);" data-toggle="modal" data-target="#helpmodal">help</a>.
       </p>
     </div>
     <div class="col-md-4 text-center">
@@ -62,6 +64,97 @@
       <p id="nbusers" class="text-center"></p>
         <ul class="list-group" id="userlist">
         </ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="helpmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title" id="myModalLabel">Help about Chatjs</h3>
+        </div>
+        <div class="modal-body">
+          <h2>Chatjs features</h2>
+          <p>
+            Chatjs has many features, including :
+            <ul>
+              <li>User count and list</li>
+              <li>Nickname change</li>
+              <li>Color change</li>
+              <li>Ninja mode</li>
+              <li>Markdown formating</li>
+              <li>Smileys <i class="fa fa-smile-o fa-lg"></i></li>
+            </ul>
+          </p>
+          
+          <h2>Nickname and color change</h2>
+          <p>
+            You can change your nickname by editing it in the left field of the chat window,
+            then hitting enter. The change will apply imediately and the other users will be
+            notified of the change.
+          </p>
+          <p>
+            To change your nickname's color, go into the "Options" menu and then hit the
+            "Randomize my color" option. A new color will be randomly assigned to you.
+          </p>
+          
+          <h2>Markdown formatting</h2>
+            <p>
+              To enrich a bit your messages, you can format them using the 
+              <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+              formatting language. For instance if you want to produce <em>italic</em> text
+              you have to put it between "*" like *this* (it will produce <em>this</em>).
+              Same if you want bold text (<strong>**bold**</strong>). But I encourage you to
+              read the <a href="http://daringfireball.net/projects/markdown/syntax">doc</a> for
+              more options.
+            </p>
+          <h2>Smileys</h2>
+            <p>
+              Here are some smileys you want to try :
+              <ul>
+                <li>:)</li>
+                <li>:|</li>
+                <li>:(</li>
+                <li><3</li>
+                <li>(y)</li>
+                <li>(n)</li>
+              </ul>
+            </p>
+          <h2>Ninja mode</h2>
+          <p>
+            Maybe you are in an environment where your friend's bullshit-talking aren't safe for
+            all to read. This is why exists the <strong>ninja mode</strong>. It is a special
+            mode that will make all the messages fade out after two minutes of existence in
+            your chat window. That means that you are relatively safe if you leave your
+            computer unattended for some time. But it also mean that you will be unable to read
+            any message that fades out until you read it. Use carefully !
+          </p>
+          <p>
+            This can be enabled/disabled under the "Options" menu.
+          </p>
+          <h2>Keyboard shortcuts</h2>
+          <p>
+            Some keyboard shortcuts have also been implemented, such as :
+            <ul>
+              <li>Alt + c : Randomizes your color</li>
+              <li>Alt + n : Toggles ninja mode</li>
+            </ul>
+          </p>
+          <h2>Technical details</h2>
+          <p>
+            This software is writtent using JavaScript clientside <em>and</em> server side,
+            using <a href="http://nodejs.org">node.js</a> and <a href="http://socket.io">socket.io</a>.
+          </p>
+          <p>
+            This software is released under the term of the <a href="http://www.wtfpl.net/txt/copying/">
+            do what the fuck you want to public license</a>, and its source code is available on
+            <a href="https://github.com/svartbergtroll/chatjs">Github</a>.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Got it !</button>
+        </div>
       </div>
     </div>
   </div>
