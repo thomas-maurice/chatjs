@@ -57,15 +57,15 @@ socket.on('nick', function(nick) {
   else // He is already registered
     displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick+"</strong> is now known as <strong>"+nick.nick+"</strong></span>");
   
-  if($('#'+nick.id).length) $('#'+nick.id).remove();
-  $('#userlist').append('<li class="list-group-item" id="'+nick.id+'">'+nick.nick+' <span class="status"></span></li>');
+  if($('#'+nick.id).length) $('#'+nick.id + " .nick").html(nick.nick);
+  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">'+nick.nick+'</span>&nbsp;<span class="status"></span></li>');
   notifyAction();
 });
 
 socket.on('userlist', function(l) {
   for(i=0; i < l.length;i++) {
     if($('#'+l[i].id).length) $('#'+l[i].id).remove();
-    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'">'+l[i].nick+' <span class="status"></span></li>');
+    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'"><span class="nick hint--left hint--rounded">'+l[i].nick+'</span>&nbsp;<span class="status"></span></li>');
   }
 });
 
@@ -86,6 +86,11 @@ socket.on('status', function(message) {
   msg = JSON.parse(message);
   displayMessage(formatStatus(msg));
   notifyAction();
+  if(msg.message == "") {
+    $('#'+msg.id + " .nick").removeAttr('data-hint');
+  } else {
+    $('#'+msg.id + " .nick").attr('data-hint', msg.message);
+  }
 });
 
 socket.on('deco', function(nick) {
@@ -198,6 +203,7 @@ function broadcastMessage() {
       stat.nick = nickname;
       stat.color = color;
       socket.emit("status", JSON.stringify(stat));
+      $('#mystatus').html('');
     } else {
       status=status[1];
       var stat = {};
@@ -206,6 +212,7 @@ function broadcastMessage() {
       stat.color = color;
       socket.emit("status", JSON.stringify(stat));
       displayMessage(formatStatus(stat));
+      $('#mystatus').html('<i class="fa fa-asterisk"></i><strong> '+ nickname + "</strong> <em>"+status+"</em>")
     }
   } else  { // This is a standard message !
     var message = {};
