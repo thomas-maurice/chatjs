@@ -53,12 +53,12 @@ socket.on('notyping', function(id) {
 
 socket.on('nick', function(nick) {
   if(!$('#'+nick.id).length)
-    displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> <strong>'+nick.nick.escapeHTML()+"</strong> has joined the chatroom !</span>");
+    displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> <strong>'+nick.nick+"</strong> has joined the chatroom !</span>");
   else // He is already registered
-    displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick.escapeHTML()+"</strong> is now known as <strong>"+nick.nick.escapeHTML()+"</strong></span>");
+    displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick+"</strong> is now known as <strong>"+nick.nick+"</strong></span>");
   
-  if($('#'+nick.id).length) $('#'+nick.id + " .nick").html('&nbsp;'+nick.nick.escapeHTML());
-  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">&nbsp;'+nick.nick.escapeHTML()+'</span>&nbsp;<span class="status"></span></li>');
+  if($('#'+nick.id).length) $('#'+nick.id + " .nick").html('&nbsp;'+nick.nick);
+  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">&nbsp;'+nick.nick+'</span>&nbsp;<span class="status"></span></li>');
   notifyAction();
 });
 
@@ -153,7 +153,7 @@ function formatMessage(msg) {
     //htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-  return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
+  return '<font color="'+msg.color+'"><i class="fa fa-comment"></i> <strong>' + msg.nick + '</strong></font></span><span class="text-muted"> : ' + htmlmessage + '</span>';
 }
 
 function formatStatus(msg) {
@@ -164,7 +164,7 @@ function formatStatus(msg) {
     //htmlmessage = htmlmessage.replace(smileySubstitutions[i][0], '<i class="fa '+smileySubstitutions[i][1]+' fa-lg" />');
 
   htmlmessage = htmlmessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-  return '<font color="'+msg.color+'"><i class="fa fa-asterisk"></i> <strong>' + msg.nick.escapeHTML() + '</strong></font></span><span class="text-muted"> ' + htmlmessage + '</span>';
+  return '<font color="'+msg.color+'"><i class="fa fa-asterisk"></i> <strong>' + msg.nick + '</strong></font></span><span class="text-muted"> ' + htmlmessage + '</span>';
 }
 
 function randomizeColor() {
@@ -212,7 +212,7 @@ function broadcastMessage() {
       stat.color = color;
       socket.emit("status", JSON.stringify(stat));
       displayMessage(formatStatus(stat));
-      $('#mystatus').html('<i class="fa fa-asterisk"></i><strong> '+ nickname + "</strong> <em>"+status+"</em>")
+      $('#mystatus').html("<em>"+status+"</em>")
     }
   } else  { // This is a standard message !
     var message = {};
@@ -236,6 +236,8 @@ $(document).ready(function() {
   $(window).resize(function() {
     adjustHeight();
   });
+  
+  $('#mynick').html(nickname);
   
   // Keypress !
   var listener = new window.keypress.Listener();
@@ -266,7 +268,8 @@ $(document).ready(function() {
           if($("#nickname").val() == "")
             $("#nickname").val(nickname);
           else {
-            nickname = $("#nickname").val();
+            nickname = $("#nickname").val().escapeHTML();
+            $('#mynick').html(nickname);
             socket.emit("nick", nickname);
             displayMessage('<span class="text-info"><i class="fa fa-user" /> You are now known as <strong>'+nickname+'</strong></span>');
             $('#message').focus();
