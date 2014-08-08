@@ -58,14 +58,14 @@ socket.on('nick', function(nick) {
     displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick+"</strong> is now known as <strong>"+nick.nick+"</strong></span>");
   
   if($('#'+nick.id).length) $('#'+nick.id + " .nick").html('&nbsp;'+nick.nick);
-  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">&nbsp;'+nick.nick+'</span>&nbsp;<span class="status"></span></li>');
+  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--right hint--rounded">&nbsp;'+nick.nick+'</span>&nbsp;<span class="status"></span></li>');
   notifyAction();
 });
 
 socket.on('userlist', function(l) {
   for(i=0; i < l.length;i++) {
     if($('#'+l[i].id).length) $('#'+l[i].id).remove();
-    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'"><span class="nick hint--left hint--rounded">'+l[i].nick+'</span>&nbsp;<span class="status"></span></li>');
+    $('#userlist').append('<li class="list-group-item" id="'+l[i].id+'"><span class="nick hint--right hint--rounded">'+l[i].nick+'</span>&nbsp;<span class="status"></span></li>');
   }
 });
 
