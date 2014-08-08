@@ -21,6 +21,9 @@ log4js.configure('conf/log4js.json', {});
 var logger = log4js.getLogger("chatjs");
 logger.info("Loading chatjs v0.0.1...")
 
+var conf = require("./conf/chatjs.json");
+logger.trace("Configured to run on port " + conf.port);
+
 /* Load the routes */
 var routes  = require("./routes");
 /* Load the chat logic */
@@ -43,7 +46,7 @@ app.post('/chat', routes.chat);
 var server = http.createServer(app);
 
 /* Launch the server */
-server.listen(8080, '0.0.0.0', logger.info("Server up and ready, listens on http://0.0.0.0:8080"));
+server.listen(conf.port, '0.0.0.0', logger.info("Server up and ready, listens on http://0.0.0.0:"+conf.port));
 var io = socketio.listen(server);
 
 /* Bind the socketio callbacks */
