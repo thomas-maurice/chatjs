@@ -247,6 +247,9 @@ $(document).ready(function() {
   listener.simple_combo("alt n", function() {
     toggleNinjaMode();
   });
+  listener.simple_combo("alt r", function() {
+    $('#chatconsole').html('')
+  });
   
   $('html').mouseenter(function() {
     unread_messages = 0;
