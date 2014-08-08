@@ -53,12 +53,12 @@ socket.on('notyping', function(id) {
 
 socket.on('nick', function(nick) {
   if(!$('#'+nick.id).length)
-    displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> <strong>'+nick.nick+"</strong> has joined the chatroom !</span>");
+    displayMessage('<span class="text-info"><i class="fa fa-arrow-right"></i> <strong>'+nick.nick.escapeHTML()+"</strong> has joined the chatroom !</span>");
   else // He is already registered
-    displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick+"</strong> is now known as <strong>"+nick.nick+"</strong></span>");
+    displayMessage('<span class="text-info"><i class="fa fa-user"></i> <strong>'+nick.oldnick.escapeHTML()+"</strong> is now known as <strong>"+nick.nick.escapeHTML()+"</strong></span>");
   
-  if($('#'+nick.id).length) $('#'+nick.id + " .nick").html(nick.nick);
-  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">'+nick.nick+'</span>&nbsp;<span class="status"></span></li>');
+  if($('#'+nick.id).length) $('#'+nick.id + " .nick").html('&nbsp;'+nick.nick.escapeHTML());
+  else $('#userlist').append('<li class="list-group-item" id="'+nick.id+'"><span class="nick hint--left hint--rounded">&nbsp;'+nick.nick.escapeHTML()+'</span>&nbsp;<span class="status"></span></li>');
   notifyAction();
 });
 

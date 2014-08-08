@@ -93,6 +93,7 @@
               <li>Nickname change</li>
               <li>Color change</li>
               <li>Ninja mode</li>
+              <li>Status updates</li>
               <li>Markdown formating</li>
               <li>Smileys <i class="fa fa-smile-o fa-lg"></i></li>
             </ul>
@@ -112,11 +113,11 @@
           <h2>Markdown formatting</h2>
             <p>
               To enrich a bit your messages, you can format them using the 
-              <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+              <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a>
               formatting language. For instance if you want to produce <em>italic</em> text
               you have to put it between "*" like *this* (it will produce <em>this</em>).
               Same if you want bold text (<strong>**bold**</strong>). But I encourage you to
-              read the <a href="http://daringfireball.net/projects/markdown/syntax">doc</a> for
+              read the <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">doc</a> for
               more options.
             </p>
           <h2>Smileys</h2>
@@ -140,8 +141,26 @@
             computer unattended for some time. But it also mean that you will be unable to read
             any message that fades out until you read it. Use carefully !
           </p>
+          <p class="bg-warning text-warning">
+            <strong>Warning:</strong> The ninja mode applies only for the messages which arrived
+            two minutes before the activation of the ninja mode. To remove older messages you must
+            use the clear button.
+          </p>
           <p>
             This can be enabled/disabled under the "Options" menu.
+          </p>
+          <h2>Status updates</h2>
+          <p>
+            You can also specify some "status updates" to specify wether you are doing something
+            or maybe to show you are not available. To do this you have to type "/me" followed
+            by your status in the chat. The users will see the update as a normal message, but
+            prefixed with an <i class="fa fa-asterisk"></i>. It will also appear as a tooltip
+            in the nickname list. To remove this tooltip, just type "/me" without any parameter.
+          </p>
+          <p class="bg-warning text-warning">
+            <strong>Warning:</strong> The status update will be seen only by people in the room
+            at the moment you send it. Since the server stores no information about anything the
+            new users will not even have the status tooltip hovering your nickname.
           </p>
           <h2>Keyboard shortcuts</h2>
           <p>
@@ -154,12 +173,12 @@
           <h2>Technical details</h2>
           <p>
             This software is writtent using JavaScript clientside <em>and</em> server side,
-            using <a href="http://nodejs.org">node.js</a> and <a href="http://socket.io">socket.io</a>.
+            using <a href="http://nodejs.org" target="_blank">node.js</a> and <a href="http://socket.io" target="_blank">socket.io</a>.
           </p>
           <p>
-            This software is released under the term of the <a href="http://www.wtfpl.net/txt/copying/">
+            This software is released under the term of the <a href="http://www.wtfpl.net/txt/copying/" target="_blank">
             do what the fuck you want to public license</a>, and its source code is available on
-            <a href="https://github.com/svartbergtroll/chatjs">Github</a>.
+            <a href="https://github.com/svartbergtroll/chatjs" target="_blank">Github</a>.
           </p>
         </div>
         <div class="modal-footer">
