@@ -18,5 +18,8 @@ body {
 
 #chatconsole {
         margin-top: 3em;
+}
+
+.centerpart {
         overflow-y: auto;
 }

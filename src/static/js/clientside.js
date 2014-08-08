@@ -186,8 +186,8 @@ function toggleNinjaMode() {
 
 function adjustHeight() {
   var height = $(window).height()-20-$('#toppart').height()-2*$('#footer').height() + "px";
-  $('#chatconsole').css("max-height", height);
-  $('#chatconsole').css("height", height);
+  $('.centerpart').css("max-height", height);
+  $('.centerpart').css("height", height);
 }
 
 function broadcastMessage() {
