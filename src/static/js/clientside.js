@@ -162,8 +162,20 @@ function toggleNinjaMode() {
   }
 }
 
+function adjustHeight() {
+  var height = $(window).height()-20-$('#toppart').height()-2*$('#footer').height() + "px";
+  $('#chatconsole').css("max-height", height);
+  $('#chatconsole').css("height", height);
+}
+
 // jQuery stuff
 $(document).ready(function() {
+  // Resize elements
+  adjustHeight();
+  $(window).resize(function() {
+    adjustHeight();
+  });
+  
   // Keypress !
   var listener = new window.keypress.Listener();
   listener.simple_combo("alt c", function() {

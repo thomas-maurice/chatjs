@@ -12,53 +12,55 @@
   <script src="/static/js/sugar-full.min.js"></script>
   <script src="/static/js/markdown.js"></script>
   <script src="/static/js/clientside.js"></script>
-  <h1>{{ pagetitle|title }} <small>| Ze best chat client ever.</small></h1>
-  <div class="row">
-    <div class="col-md-4 text-justify">
-      <p>
-          You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
-          to format you messages ! As well as some cool smileys. Maybe you would want some 
-          <a href="javascript:void(0);" data-toggle="modal" data-target="#helpmodal">help</a>.
-      </p>
-    </div>
-    <div class="col-md-4 text-center">
-
-    </div>
-    <div class="col-md-4">
-      <p class="text-center">
-        Network status: <span id="connstatus">Awaiting connection <i class="fa fa-circle-o-notch fa-spin"></i></span>
-      </p>
-    </div>
-  </div>
-  <div class="col-md-12">
+  <div id="toppart">
+    <h1>{{ pagetitle|title }} <small>| Ze best chat client ever.</small></h1>
     <div class="row">
-      <div class="col-md-3">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon">
-            <i class="fa fa-user"></i>
-          </span>
-          <input id="nickname" name="nickname" value="{{nickname}}" type="text" class="form-control" placeholder="nickname" required>
-        </div>
+      <div class="col-md-4 text-justify">
+        <p>
+            You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+            to format you messages ! As well as some cool smileys. Maybe you would want some 
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#helpmodal">help</a>.
+        </p>
       </div>
-      <div class="col-md-9">
-        <div class="input-group input-group-lg">
-          <input id="message" name="message" type="text" class="form-control" placeholder="Enter your message here !" required autofocus>
-          <div class="input-group-btn">
-            <button id="sendbutton" class="btn btn-warning">Send !</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Options <span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-              <li><a class="hint--left hint--rounded text-warning" data-hint="Ninja mode will make your messages disappear after 2 minutes." id="ninjamode" href="javascript:void(0);">Switch to ninja mode</a></li>
-              <li><a id="clearbutton" href="javascript:void(0);">Clear</a></li>
-              <li class="divider"></li>
-              <li><a id="randcolorbutton" href="javascript:void(0);">Randomize my color !</a></li>
-            </ul> 
+      <div class="col-md-4 text-center">
+
+      </div>
+      <div class="col-md-4">
+        <p class="text-center">
+          Network status: <span id="connstatus">Awaiting connection <i class="fa fa-circle-o-notch fa-spin"></i></span>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <i class="fa fa-user"></i>
+            </span>
+            <input id="nickname" name="nickname" value="{{nickname}}" type="text" class="form-control" placeholder="nickname" required>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="input-group input-group-lg">
+            <input id="message" name="message" type="text" class="form-control" placeholder="Enter your message here !" required autofocus>
+            <div class="input-group-btn">
+              <button id="sendbutton" class="btn btn-warning">Send !</button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Options <span class="caret"></span></button>
+              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li><a class="hint--left hint--rounded text-warning" data-hint="Ninja mode will make your messages disappear after 2 minutes." id="ninjamode" href="javascript:void(0);">Switch to ninja mode</a></li>
+                <li><a id="clearbutton" href="javascript:void(0);">Clear</a></li>
+                <li class="divider"></li>
+                <li><a id="randcolorbutton" href="javascript:void(0);">Randomize my color !</a></li>
+              </ul> 
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> <!-- /toppart -->
   <div class="row">
-    <div class="col-md-9" style="margin-top: 3em;" id="chatconsole">
+    <div class="col-md-9" style="margin-top: 3em; overflow-y: auto;" id="chatconsole">
     </div>
     <div class="col-md-3" style="margin-top: 3em;">
       <p id="nbusers" class="text-center"></p>
