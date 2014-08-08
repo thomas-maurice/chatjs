@@ -35,6 +35,8 @@ For now the app supports only one big chatroom. The main functionalities are :
  * Auto reconnection on server or client failure
  * Connection/Deconnection notification
  * Some smileys :)
+ * Status updates ! Similar to the /me command in IRC
+ * Now a help window
  * Clickable links
  * Ninja mode (accessible via Alt + n) it will make the message disapear from your console after 2 minutes. Handy if you are at work ;)
 
