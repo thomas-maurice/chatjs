@@ -7,14 +7,69 @@
 {% endblock topbody %}
 
 {% block body %}
-  <h1>{{ pagetitle|title }}</h1>
-  <p>
-    Hello ! In order to enjoy the almighty #swag of Chatjs, thou shalt give me your glorious name !
-  </p>
-  <div class="col-md-6 col-md-offset-3 text-center" style="margin-top: 3em;">
-    <form class="form-inline" role="form" method="POST" action="chat">
-      <input id="nickname" name="nickname" type="text" class="form-control input-lg" placeholder="your glorious name" required autofocus>
-      <button class="btn btn-lg btn-primary" type="submit">Join the chat !</button>
-    </form>
-  </div>
+    <div class="col-md-10 col-md-offset-1 screenheight" style="padding-top: 3em;">
+        <div class="jumbotron">
+            <h1><i class="fa fa-comments fa-lg"></i> Chatjs</h1>
+            <p>
+                Chatjs is a cool, user-friendly, simple Javascript chat application, built using
+                node.js and socket.io. Give it a try !
+            </p>
+            <p class="text-center">
+                <a class="btn btn-lg btn-warning" href="#about" role="button">Learn more</a> or
+                <a class="btn btn-primary btn-lg" href="#chat" role="button">Give it a try !</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 screenheight" id="chat">
+        <br/><br/>
+        <h1>Let's chat !</h1>
+        <p>
+            In order to enjoy the almighty #swag of Chatjs, thou shalt give me your glorious name !
+        </p>
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <form class="form-inline" role="form" method="POST" action="chat">
+                <input id="nickname" name="nickname" type="text" class="form-control input-lg" placeholder="your glorious name" required autofocus>
+                <button class="btn btn-primary btn-lg btn-primary" type="submit">Join the chat !</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 screenheight" style="padding-top: 3em;" id="about">
+        <h1>What is chatjs ?</h1>
+        <p>
+            Chatjs is a very basic one chatroom web application. It means that all the users
+            connecting it are actually accessing the same chatroom at the same time. It might seem strange though,
+            so one of the major improvements to come is the support for several chatrooms, stay tuned ;)
+        </p>
+        <p>
+            Chatjs provides some cool features, such as :
+            <ul>
+                    <li>User count and list</li>
+                    <li>Nickname change</li>
+                    <li>Color change</li>
+                    <li>Ninja mode</li>
+                    <li>Status updates</li>
+                    <li>Markdown formating</li>
+                    <li>Smileys <i class="fa fa-smile-o fa-lg"></i></li>
+                </li>
+            </ul>
+            But you might want to read the provided help in the chat window.
+        </p>
+        <p class="text-warning bg-warning">
+            <strong>Warning: </strong>
+            This software is still very young. It might be slightly unstable so you might experience
+            some bugs frome time to time. Don't panic they will be fixed soon, it would be really
+            helpful if you could fill issues on Github to help solve the problems.
+        </p>
+        <p>
+            Now thay you know more about it, why would not you give it a try ?
+            <p class="text-center">
+                <a href="#chat" class="btn btn-lg btn-primary" role="button">Give it a try !</a>
+            </p>
+        </p>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".screenheight").css("min-height", ($(window).height())+"px");
+        });
+    </script>
 {% endblock body %}
