@@ -6,6 +6,7 @@ var sockets = []
 
 module.exports.onConnect = function(socket) {
   var ip = socket.handshake.address;
+  if (ip == null) ip = {address: "unknowk address'}
   logger.info("Websocket connection from " + ip.address);
   
   /* Configure the socket */
